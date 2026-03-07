@@ -178,7 +178,7 @@ Content-Type: application/json
 - Publicly accessible at live URL
 
 ## 🎬 Demo Video
-[Link to demo video will be added]
+https://drive.google.com/file/d/12q1FNUOXUeo1j3UIiqV0S5ReAFO8MruK/view?usp=sharing
 
 ## 👨‍💻 Author
 **Prajwal Dhoke**
