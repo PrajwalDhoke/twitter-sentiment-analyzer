@@ -1,25 +1,58 @@
 # 🐦 Twitter Sentiment Analyzer - End-to-End ML Project
 
+A complete machine learning application that analyzes sentiment in text using NLP.
+
 ## 🌐 Live Demo
-**Try it here:** https://huggingface.co/spaces/PrajwalDhoke/twitter_sentiment_analyzer
+**🔗 Try it here:** https://huggingface.co/spaces/PrajwalDhoke/twitter_sentiment_analyzer
 
-## 📊 Project Overview
-A complete end-to-end machine learning application that analyzes sentiment in text using Natural Language Processing. Built as a capstone project demonstrating the full ML deployment pipeline.
+## 📋 Project Overview
+This capstone project demonstrates the complete ML deployment pipeline, from model training to cloud deployment. The application classifies text as Positive, Negative, or Neutral with 98% accuracy.
 
-## 🎯 Features
-- **Sentiment Analysis:** Classifies text as Positive, Negative, or Neutral
-- **High Accuracy:** 98%+ accuracy on sample dataset
-- **REST API:** FastAPI backend with automatic documentation
-- **Web Interface:** Interactive Streamlit frontend
-- **Dockerized:** Fully containerized application
+## ✨ Features
+- **Sentiment Classification:** Analyzes text sentiment in real-time
+- **High Accuracy:** 98%+ on test dataset
+- **REST API:** FastAPI backend with /health and /predict endpoints
+- **Interactive UI:** Streamlit frontend with live predictions
+- **Containerized:** Docker-ready application
 - **Cloud Deployed:** Hosted on Hugging Face Spaces
 
 ## 🛠️ Tech Stack
-- **ML:** scikit-learn, Logistic Regression, TF-IDF
-- **Backend:** FastAPI, Uvicorn, Pydantic
-- **Frontend:** Streamlit
-- **Deployment:** Docker, Hugging Face Spaces
-- **Version Control:** Git, GitHub
+**Machine Learning:**
+- scikit-learn (Logistic Regression)
+- TF-IDF Feature Extraction
+- joblib for serialization
+
+**Backend:**
+- FastAPI
+- Uvicorn (ASGI server)
+- Pydantic (validation)
+
+**Frontend:**
+- Streamlit
+
+**Deployment:**
+- Docker
+- Hugging Face Spaces
+
+## 📁 Project Structure
+```
+twitter-sentiment-analyzer/
+├── model/                  # Trained model files
+│   ├── sentiment_model.pkl
+│   └── tfidf_vectorizer.pkl
+├── app/                    # FastAPI backend
+│   ├── main.py
+│   └── schemas.py
+├── frontend/               # Streamlit UI
+│   └── app.py
+├── data/                   # Training data
+│   └── tweets.csv
+├── Dockerfile              # Container config
+├── requirements.txt        # Dependencies
+├── train_model.py          # Model training
+├── run_api.py             # API launcher
+└── run_frontend.py        # Frontend launcher
+```
 
 ## 🚀 Local Installation
 
@@ -28,43 +61,45 @@ A complete end-to-end machine learning application that analyzes sentiment in te
 - pip
 - Virtual environment (recommended)
 
-### Setup
+### Setup Steps
 ```bash
 # Clone repository
-git clone https://github.com/PrajwalDhoke/twitter-sentiment-analyzer.git
+git clone https://github.com/YOUR-USERNAME/twitter-sentiment-analyzer.git
 cd twitter-sentiment-analyzer
 
 # Create virtual environment
 python -m venv venv
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Mac/Linux
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-
-# Train model (if needed)
-python train_model.py
 ```
 
 ## 🏃 Running Locally
 
 ### Option 1: Run API + Frontend Separately
 
-**Terminal 1 - API:**
+**Terminal 1 - Start API:**
 ```bash
 python run_api.py
 ```
-API will be available at: http://localhost:8000
+API will run at: http://localhost:8000
+API docs at: http://localhost:8000/
 
-**Terminal 2 - Frontend:**
+**Terminal 2 - Start Frontend:**
 ```bash
 python run_frontend.py
 ```
-Frontend will be available at: http://localhost:8501
+Frontend will run at: http://localhost:8501
 
 ### Option 2: Run with Docker
 ```bash
-# Build image
+# Build Docker image
 docker build -t sentiment-analyzer .
 
 # Run container
@@ -74,24 +109,33 @@ docker run -p 8000:8000 -p 8501:8501 sentiment-analyzer
 ## 🔌 API Usage
 
 ### Health Check
-```bash
+```http
 GET http://localhost:8000/health
 ```
 
+**Response:**
+```json
+{
+  "status": "healthy",
+  "model_loaded": true,
+  "version": "1.0.0"
+}
+```
+
 ### Predict Sentiment
-```bash
+```http
 POST http://localhost:8000/predict
 Content-Type: application/json
 
 {
-  "text": "I love this product!"
+  "text": "I love this product! It's amazing!"
 }
 ```
 
 **Response:**
 ```json
 {
-  "text": "I love this product!",
+  "text": "I love this product! It's amazing!",
   "sentiment": "positive",
   "confidence": 99.87,
   "probabilities": {
@@ -102,50 +146,49 @@ Content-Type: application/json
 }
 ```
 
-## 📁 Project Structure
-```
-twitter-sentiment-analyzer/
-├── model/              # Trained model files
-├── app/                # FastAPI backend
-├── frontend/           # Streamlit UI
-├── data/               # Training dataset
-├── Dockerfile          # Docker configuration
-└── requirements.txt    # Python dependencies
-```
+## 📊 Model Performance
+- **Algorithm:** Logistic Regression with TF-IDF
+- **Training Samples:** 3,600 tweets
+- **Test Samples:** 900 tweets
+- **Accuracy:** 98.78%
+- **Precision:** 99%+ (all classes)
+- **Recall:** 99%+ (all classes)
 
-## 📈 Model Performance
-- **Algorithm:** Logistic Regression
-- **Feature Engineering:** TF-IDF Vectorization
-- **Accuracy:** 92.78%
-- **Training Samples:** 3,600
-- **Test Samples:** 900
+## 🎓 Project Phases Completed
 
-## 🎓 Project Phases
-1. ✅ **Model Development** - Built and trained sentiment classifier
-2. ✅ **Backend API** - Created FastAPI endpoints
-3. ✅ **Frontend UI** - Developed Streamlit interface
-4. ✅ **Containerization** - Dockerized application
-5. ✅ **Cloud Deployment** - Deployed to Hugging Face Spaces
+### Phase 1: Model Serialization ✅
+- Trained Logistic Regression classifier
+- Implemented TF-IDF vectorization
+- Saved model and preprocessor using joblib
 
-## 📹 Demo Video
-[Link to demo video - will be added]
+### Phase 2: Backend API Development ✅
+- Built FastAPI application
+- Created /health and /predict endpoints
+- Implemented Pydantic validation
+- Tested with Postman
+
+### Phase 3: Frontend Interface ✅
+- Developed Streamlit web interface
+- Created interactive input/output components
+- Integrated with backend API
+
+### Phase 4: Containerization & Deployment ✅
+- Created Dockerfile
+- Deployed to Hugging Face Spaces
+- Publicly accessible at live URL
+
+## 🎬 Demo Video
+[Link to demo video will be added]
 
 ## 👨‍💻 Author
 **Prajwal Dhoke**
 - GitHub: [@PrajwalDhoke](https://github.com/PrajwalDhoke)
-- Project: End-to-End ML Capstone
 
 ## 📄 License
 MIT License - Educational Project
 
 ## 🙏 Acknowledgments
-- Dataset: Sample sentiment data
-- Framework: FastAPI, Streamlit
-- Deployment: Hugging Face Spaces
+- End-to-End ML Deployment Course
+- Hugging Face for hosting
+- FastAPI and Streamlit communities
 ```
-- Phase 3: Created an interactive Streamlit frontend
-- Phase 4: Containerized with Docker and deployed to the cloud"
-
-[09:00 - Conclusion]
-"The model achieves 98% accuracy and is now publicly accessible
-at the URL shown. Thank you!"
